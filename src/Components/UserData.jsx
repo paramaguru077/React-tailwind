@@ -44,7 +44,7 @@ const UserData = () => {
       <p className="m-1 text-center text-sm hover:underline text-blue-600 p-1">
         We'd love to hear from you! Fill out your details and drop us a message. We'll get back to you as soon as possible.
       </p>
-      <form onSubmit={handleForm} className="m-2 p-4 bg-gray-50 rounded-xl shadow w-[50%] flex flex-col items-center">
+      <form onSubmit={handleForm} className="m-2 p-4 bg-gray-50 rounded-xl shadow  flex flex-col items-center">
         <div className="m-2 flex gap-1">
           <label htmlFor="name" className="text-blue-800 text-[18px] font-serif">
             Name:
