@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components{
+    .input-flied{
+        @apply  ml-2 border-2 border-gray-300 rounded-lg border-opacity-25 ring-1 active:ring-2 mb-4
+    }
+}
+
