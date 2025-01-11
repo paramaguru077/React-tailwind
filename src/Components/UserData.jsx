@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Display from './Display';
 
 const UserData = () => {
@@ -9,6 +9,7 @@ const UserData = () => {
   });
   const[submittedData,setSubmittedData] = useState([]);
   const [error,setError]= useState({});
+  const[editIndex,setEditIndex]= useState(null);
   
 
   const validate =()=>{
@@ -31,10 +32,14 @@ const UserData = () => {
   };
 
   const handleDelete = (index)=>{
-    setSubmittedData((prevData)=> prevData.filter(
-      (_,i)=> index!==i
-    ));
+   const updatedData = submittedData.filter((_,i)=> index!==i);
+   setSubmittedData(updatedData);
+   localStorage.setItem('submittedData',JSON.stringify(updatedData));
   };
+  const handleEdit =(index)=>{
+    setEditIndex(index);
+    setData(submittedData[index]);
+  }
 
 
   const handleSubmit = (e) => {
@@ -42,13 +47,27 @@ const UserData = () => {
      
     const checkValidate  =  validate();
     if(Object.keys(checkValidate).length>0){
-      setError(checkValidate);
-      
+      setError(checkValidate); 
 
     }
+    
     else{
       setError({});
-      setSubmittedData((prevData)=> [...prevData,data])
+
+      if(editIndex!==null){
+        const updatedData = [...submittedData];
+        updatedData[editIndex]=data;
+        setSubmittedData(updatedData);
+        localStorage.setItem("submittedData",JSON.stringify(updatedData));
+        setEditIndex(null);
+      }
+      else{
+        const updateData = [...submittedData,data];
+      setSubmittedData(updateData);
+      localStorage.setItem('submittedData',JSON.stringify(updateData));
+
+      }
+      
     setData({
       name: '',
       email: '',
@@ -69,6 +88,14 @@ const UserData = () => {
       [name]: value,
     }));
   };
+
+  useEffect(()=>{
+    const data = localStorage.getItem('submittedData');
+    if(data){
+      setSubmittedData(JSON.parse(data));
+    }
+
+  },[])
   
 
   return (
@@ -128,7 +155,7 @@ const UserData = () => {
           className="px-6 py-2 bg-indigo-600 rounded-lg text-blue-200 font-mono text-[18px] hover:bg-indigo-500 active:bg-blue-700"
           onClick={handleSubmit}
         >
-          Submit
+          {editIndex!==null? "Update":"Submit"}
         </button>
       </div> 
       </form>
@@ -139,7 +166,7 @@ const UserData = () => {
             
          <div class="w-[50%] my-4 ml-[25%] h-[2px] bg-gray-300 shadow-md rounded-lg flex justify-center"></div>
 
-         <Display submittedData={submittedData} handleDelete={handleDelete} />
+         <Display submittedData={submittedData} handleDelete={handleDelete} handleEdit={handleEdit} />
           
         </>
       )}

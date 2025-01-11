@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Display = ({ submittedData , handleDelete}) => {
+const Display = ({ submittedData , handleDelete,handleEdit}) => {
   return (
     <>
       <div className="overflow-auto rounder-lg shadow  w-full hidden  sm:flex justify-center">
@@ -20,7 +20,10 @@ const Display = ({ submittedData , handleDelete}) => {
                   <td className="py-2 px-4 border-b border-blue-300 font-serif">{val.name}</td>
                   <td className="py-2 px-4 border-b border-blue-300">{val.email}</td>
                   <td className="py-2 px-4 border-b border-blue-300">{val.message}</td>
+                  <div>
                   <button className='px-3 bg-red-600 text-md text-white m-1 border-1 border-red-500 rounded-xl ring-1 active:bg-red-500' onClick={()=>handleDelete(i)}>Delete</button>
+                  <button className='px-3 bg-red-600 text-md text-white m-1 border-1 border-red-500 rounded-xl ring-1 active:bg-red-500' onClick={()=>handleEdit(i)}>Edit</button>
+                  </div>
                 </tr>
               ))}
             </tbody>
@@ -37,7 +40,10 @@ const Display = ({ submittedData , handleDelete}) => {
                 <div className='text-left font-serif text-lg text-gray-500 hover:underline uppercase'>{val.name}</div>
                 <div className='text-lg text-gray-600 tracking-wide'>{val.email}</div>
                 <div className='text-lg text-gray-700 tracking-wide'>{val.message}</div>
-                <div><button className='px-3 bg-red-600 text-md text-white m-1 border-1 border-red-500 rounded-xl ring-1 active:bg-red-500' onClick={()=> handleDelete(i)}>Delete</button></div>
+                <div className='flex '>
+                <button className='px-3 bg-red-600 text-md text-white m-1 border-1 border-red-500 rounded-xl ring-1 active:bg-red-500' onClick={()=> handleDelete(i)}>Delete</button>
+                <button className='px-3 bg-red-600 text-md text-white m-1 border-1 border-red-500 rounded-xl ring-1 active:bg-red-500' onClick={()=> handleEdit(i)}>Edit</button>
+                </div>
 
               </div>
 
